@@ -1,1 +1,179 @@
-{"software":{"name":"huginn","major":null,"minor":1,"release_level":"Alpha","patch":null,"license_name":"standard_open_source_initiative_mit_license","license_label":"Standard Open Source Initiative MIT License","license_sourceurl":"http://opensource.org/licenses/MIT","full_title":"Huginn","short_title":"Huginn","description":"Huginn is a system for building agents that perform automated tasks for you online. They can read the web, watch for events, and take actions on your behalf. Huginn's Agents create and consume events, propagating them along a directed graph. Think of it as a hackable Yahoo! Pipes plus IFTTT on your own server. You always know who has your data. You do.","icon_url":"https://camo.githubusercontent.com/1614fd76b6df8c66cd3a6c8d07e19248ca4b948f/68747470733a2f2f7261772e6769746875622e636f6d2f63616e74696e6f2f687567696e6e2f6d61737465722f6d656469612f687567696e6e2d6c6f676f2e706e67","home_page_url":"","support_page_url":"","about":"Here are some of the things that you can do with Huginn:\r\n\r\n    Track the weather and get an email when it's going to rain (or snow) tomorrow (\"Don't forget your umbrella!\")\r\n    List terms that you care about and receive emails when their occurrence on Twitter changes. (For example, want to know when something interesting has happened in the world of Machine Learning? Huginn will watch the term \"machine learning\" on Twitter and tell you when there is a spike in discussion.)\r\n    Watch for air travel or shopping deals\r\n    Follow your project names on Twitter and get updates when people mention them\r\n    Scrape websites and receive emails when they change\r\n    Connect to Adioso, HipChat, Basecamp, Growl, FTP, IMAP, Jabber, JIRA, MQTT, nextbus, Pushbullet, Pushover, RSS, Bash, Slack, StubHub, translation APIs, Twilio, Twitter, Wunderground, and Weibo, to name a few.\r\n    Send digest emails with things that you care about at specific times during the day\r\n    Track counts of high frequency events and send an SMS within moments when they spike, such as the term \"san francisco emergency\"\r\n    Send and receive WebHooks\r\n    Run custom JavaScript or CoffeeScript functions\r\n    Track your location over time\r\n    Create Amazon Mechanical Turk workflows as the inputs, or outputs, of agents (the Amazon Turk Agent is called the \"HumanTaskAgent\"). For example: \"Once a day, ask 5 people for a funny cat photo; send the results to 5 more people to be rated; send the top-rated photo to 5 people for a funny caption; send to 5 final people to rate for funniest caption; finally, post the best captioned photo on my blog.\"\r\n","language":"ruby","framework":"rails4","deployment_type":"web","web_root_directory":"","first_run_url":"_Engines_Builder(http_protocol)://_Engines_Builder(fqdn)/","publisher":"engines","blocking_worker_name":"agent runner","required_memory":580,"recommended_memory":720,"http_protocol":"http_and_https","framework_port_overide":null,"custom_start_script":"#!/bin/sh\r\n\r\nif ! test -h /home/fs/persistent/environment.txt\r\n then\r\n     cd /home/fs/persistent\r\n     ln -s /home/app/.env /home/fs/persistent/environment.txt \r\n    \r\nfi\r\n\r\n\r\n\r\n","custom_install_script":"","custom_post_install_script":"","service_configurations":[{"publisher_namespace":"EnginesSystem","type_path":"database/sql/mysql","variables":{"db_flavor":"mysql2","collation":"utf8mb4_general_ci","db_username":"_Engines_Builder(engine_name)","database_name":"_Engines_Builder(engine_name)","database_host":"_Engines_System(mysql_host)","name":"_Engines_Builder(engine_name)","db_password":"_Engines_System(random(10))","full_access":"false"}},{"publisher_namespace":"EnginesSystem","type_path":"filesystem/local/filesystem","variables":{"user":"_Engines_Builder(data_uid)","group":"_Engines_Builder(data_gid)","service_name":"_Engines_Builder(engine_name)","volume_src":" ","permissions":"rw","engine_path":"persistent"}}],"persistent_directories":[],"replacement_strings":[],"persistent_files":[{"path":".env"}],"installed_packages":[{"name":"huginn","source_url":"https://github.com/cantino/huginn.git","destination":"/","extraction_command":"git","path_to_extracted":"huginn"}],"system_packages":[],"workers":[{"name":"agent runner","command":"bundle exec rails runner bin/threaded.rb"}],"ports":[],"external_repositories":[],"rake_tasks":[{"action":"db:migrate","created_at":"2016-01-29T01:00:14.000Z","updated_at":"2016-02-22T05:02:16.000Z","always_run":true},{"action":"db:seed","created_at":"2016-01-29T01:00:42.000Z","updated_at":"2016-01-29T01:00:42.000Z","always_run":false},{"action":"assets:precompile","created_at":"2016-01-30T23:04:42.000Z","updated_at":"2016-01-30T23:04:42.000Z","always_run":true}],"template_files":[{"title":"env","path":"app/.env","content":"# ==== Required configuration settings for Huginn ====\r\n\r\n# Replace the following with the output from \"rake secret\"\r\nAPP_SECRET_TOKEN=_Engines_System(random(14))\r\n\r\n# This is the domain where your Huginn instance will be running. The default should work\r\n# for development, but it needs to be changed to your Huginn domain when you deploy to a\r\n# production environment (e.g., yourdomain.com, possibly including a port).\r\n#DOMAIN=localhost:3000\r\nDOMAIN=_Engines_Environment(fqdn)\r\n# Optionally set an asset host\r\n# ASSET_HOST=http://assets.example.com\r\n\r\n############################\r\n#      Database Setup      #\r\n############################\r\n\r\nDATABASE_ADAPTER=mysql2\r\nDATABASE_ENCODING=utf8\r\nDATABASE_RECONNECT=true\r\nDATABASE_NAME='_Engines_Environment(dbname)'\r\nDATABASE_POOL=10\r\nDATABASE_USERNAME='_Engines_Environment(dbuser)'\r\nDATABASE_PASSWORD=\"_Engines_Environment(dbname)\"\r\nDATABASE_HOST=\"_Engines_Environment(dbhost)\"\r\n#DATABASE_PORT=3306\r\n#DATABASE_SOCKET=/tmp/mysql.sock\r\n\r\n# MySQL only: If you are running a MySQL server \u003e=5.5.3, you should\r\n# set DATABASE_ENCODING to utf8mb4 instead of utf8 so that the\r\n# database can hold 4-byte UTF-8 characters like emoji.\r\n#DATABASE_ENCODING=utf8mb4\r\n\r\n# ==== Additional required production settings ====\r\n\r\n# Configure Rails environment.  This should only be needed in production and may cause errors in development.\r\nRAILS_ENV=production\r\n\r\n# Should Rails force all requests to use SSL?\r\nFORCE_SSL=false\r\n\r\n############################\r\n#     Allowing Signups     #\r\n############################\r\n\r\n# This invitation code will be required for users to signup with your Huginn installation.\r\n# You can see its use in user.rb.  PLEASE CHANGE THIS!\r\nINVITATION_CODE=try-huginn\r\n\r\n# If you don't want to require new users to have an invitation code in order to sign up, set this to true.\r\nSKIP_INVITATION_CODE=false\r\n\r\n#############################\r\n#    Email Configuration    #\r\n#############################\r\n\r\n# Outgoing email settings.  To use Gmail or Google Apps, put your Google Apps domain or gmail.com\r\n# as the SMTP_DOMAIN and your Gmail username and password as the SMTP_USER_NAME and SMTP_PASSWORD.\r\n#\r\n# PLEASE NOTE: In order to enable sending real emails via SMTP locally (e.g., when not in the production Rails environment),\r\n# you must also set SEND_EMAIL_IN_DEVELOPMENT to true below.\r\n#\r\n# If you have trouble with port 587 on Gmail, you can also try setting\r\n# SMTP_AUTHENTICATION to login and the SMTP_PORT to 465.\r\n\r\nSMTP_DOMAIN=_Engines_Environment(dbname)\r\n#SMTP_USER_NAME=you@gmail.com\r\n#SMTP_PASSWORD=somepassword\r\nSMTP_SERVER=_Engines_System(smtp_host)\r\nSMTP_PORT=25\r\nSMTP_AUTHENTICATION=none\r\nSMTP_ENABLE_STARTTLS_AUTO=false\r\n\r\n# Set to true to send real emails via SMTP when running in the development Rails environment.\r\n# Set to false to have emails intercepted in development and displayed at http://localhost:3000/letter_opener\r\nSEND_EMAIL_IN_DEVELOPMENT=false\r\n\r\n# The address from which system emails will appear to be sent.\r\nEMAIL_FROM_ADDRESS=_Engines_Environment(from_email)\r\n\r\n###########################\r\n#      Agent Logging      #\r\n###########################\r\n\r\n# Number of lines of log messages to keep per Agent\r\nAGENT_LOG_LENGTH=200\r\n\r\n########################################################################################################\r\n#    OAuth Configuration                                                                               #\r\n#  More information at the wiki: https://github.com/cantino/huginn/wiki/Configuring-OAuth-applications #\r\n########################################################################################################\r\n\r\nTWITTER_OAUTH_KEY=\r\nTWITTER_OAUTH_SECRET=\r\n\r\nTHIRTY_SEVEN_SIGNALS_OAUTH_KEY=\r\nTHIRTY_SEVEN_SIGNALS_OAUTH_SECRET=\r\n\r\nGITHUB_OAUTH_KEY=\r\nGITHUB_OAUTH_SECRET=\r\n\r\nTUMBLR_OAUTH_KEY=\r\nTUMBLR_OAUTH_SECRET=\r\n\r\nDROPBOX_OAUTH_KEY=\r\nDROPBOX_OAUTH_SECRET=\r\n\r\nWUNDERLIST_OAUTH_KEY=\r\nWUNDERLIST_OAUTH_SECRET=\r\n\r\nEVERNOTE_OAUTH_KEY=\r\nEVERNOTE_OAUTH_SECRET=\r\n# Set to true in development, false in production\r\nUSE_EVERNOTE_SANDBOX=true\r\n\r\n#############################\r\n#  AWS and Mechanical Turk  #\r\n#############################\r\n\r\n# AWS Credentials for MTurk\r\nAWS_ACCESS_KEY_ID=\"your aws access key id\"\r\nAWS_ACCESS_KEY=\"your aws access key\"\r\n\r\n# Set AWS_SANDBOX to true if you're developing Huginn code.\r\nAWS_SANDBOX=false\r\n\r\n########################\r\n#   Various Settings   #\r\n########################\r\n\r\n# Specify the HTTP backend library for Faraday, commonly used by\r\n# WebsiteAgent, RssAgent and PostAgent.  You can change this depending\r\n# on the performance and stability you need for your service.  Any\r\n# choice other than \"typhoeus\", \"net_http\", or \"em_http\" should\r\n# require you to bundle a corresponding gem via Gemfile.\r\nFARADAY_HTTP_BACKEND=typhoeus\r\n\r\n# Specify the default User-Agent header value for HTTP requests made\r\n# by Agents that allow overriding the User-Agent header value.\r\nDEFAULT_HTTP_USER_AGENT=\"Huginn - https://github.com/cantino/huginn\"\r\n\r\n# Allow JSONPath eval expresions. i.e., $..price[?(@ \u003c 20)]\r\n# You should not allow this on a shared Huginn box because it is not secure.\r\nALLOW_JSONPATH_EVAL=false\r\n\r\n# Enable this setting to allow insecure Agents like the ShellCommandAgent.  Only do this\r\n# when you trust everyone using your Huginn installation.\r\nENABLE_INSECURE_AGENTS=false\r\n\r\n# Enable this setting to allow second precision schedule in\r\n# SchedulerAgent.  By default, the use of the \"second\" field is\r\n# restricted so that any value other than a single zero (which means\r\n# \"on the minute\") is disallowed to prevent abuse of service.\r\nENABLE_SECOND_PRECISION_SCHEDULE=false\r\n\r\n# Specify the scheduler frequency in seconds (default: 0.3).\r\n# Increasing this value will help reduce the use of system resources\r\n# at the expense of time accuracy.\r\nSCHEDULER_FREQUENCY=0.3\r\n\r\n# Specify the frequency with which the scheduler checks for and cleans up expired events.\r\n# You can use `m` for minutes, `h` for hours, and `d` for days.\r\nEVENT_EXPIRATION_CHECK=6h\r\n\r\n# Use Graphviz for generating diagrams instead of using Google Chart\r\n# Tools.  Specify a dot(1) command path built with SVG support\r\n# enabled.\r\n#USE_GRAPHVIZ_DOT=dot\r\n\r\n# Default layout for agent flow diagrams generated by Graphviz.\r\n# Choose from `circo`, `dot` (default), `fdp`, `neato`, `osage`,\r\n# `patchwork`, `sfdp`, or `twopi`.  Note that not all layouts are\r\n# supported by Graphviz depending on the build options.\r\n#DIAGRAM_DEFAULT_LAYOUT=dot\r\n\r\n# Timezone. Use `rake time:zones:local` or `rake time:zones:all` to get your zone name\r\nTIMEZONE=\"Pacific Time (US \u0026 Canada)\"\r\n\r\n# Number of failed jobs to keep in the database\r\nFAILED_JOBS_TO_KEEP=100\r\n\r\n# Maximum runtime of background jobs in minutes\r\nDELAYED_JOB_MAX_RUNTIME=2\r\n\r\n# Amount of seconds for delayed_job to sleep before checking for new jobs\r\nDELAYED_JOB_SLEEP_DELAY=10\r\n\r\n###############################################################\r\n# Capistrano deployment, read the documentation:              #\r\n# https://github.com/cantino/huginn/doc/manual/capistrano.md  #\r\n###############################################################\r\n\r\n#CAPISTRANO_DEPLOY_SERVER=\r\n#CAPISTRANO_DEPLOY_USER=\r\n#CAPISTRANO_DEPLOY_REPO_URL=\r\n"},{"title":"Procfile","path":"app/Procfile","content":"#"}],"file_write_permissions":[],"custom_php_inis":[],"apache_htaccess_files":[],"apache_httpd_configurations":[],"modules":[],"variables":[{"name":"LANG","value":"en_US.UTF-8","label":"LANG","field_type":"text","select_collection":"","tooltip":"","hint":"","placeholder":"","comment":"","regex_validator":"","regex_invalid_message":"","mandatory":false,"ask_at_build_time":false,"build_time_only":false,"immutable":true},{"name":"LANGUAGE","value":"en_US.UTF-8","label":"LANGUAGE","field_type":"text","select_collection":"","tooltip":"","hint":"","placeholder":"","comment":"","regex_validator":"","regex_invalid_message":"","mandatory":false,"ask_at_build_time":false,"build_time_only":false,"immutable":true},{"name":"LC_ALL","value":"en_US.UTF-8","label":"LC_ALL","field_type":"text","select_collection":"","tooltip":"","hint":"","placeholder":"","comment":"","regex_validator":"","regex_invalid_message":"","mandatory":false,"ask_at_build_time":false,"build_time_only":false,"immutable":true},{"name":"from_email","value":"piwigo@_Engines_System(default_domain)","label":"From email","field_type":"","select_collection":"","tooltip":"","hint":"","placeholder":"","comment":"","regex_validator":"","regex_invalid_message":"","mandatory":true,"ask_at_build_time":true,"build_time_only":false,"immutable":false}],"component_sources":[],"component_path":"","extract_components":false,"installation_report_template":"\r\nGoto _Engines_Builder(http_protocol)://_Engines_Builder(fqdn)/ and login with\r\nUser admin\r\npassword password","continuous_deployment":false,"database_seed_file":""}}
+{
+  "schema": {
+    "type": "app_blueprint",
+    "version": {
+      "major": 1,
+      "minor": 0
+    },
+    "origin": "Engines Developer Studio 0.2"
+  },
+  "metadata": {
+    "blueprint": {
+      "version": {
+        "major": 0,
+        "minor": 1,
+        "level": "alpha",
+        "patch": 0
+      }
+    },
+    "software": {
+      "display": {
+        "title": "Huginn",
+        "label": "Huginn",
+        "description": "Huginn is a system for building agents that perform automated tasks for you online. They can read the web, watch for events, and take actions on your behalf. Huginn's Agents create and consume events, propagating them along a directed graph. Think of it as a hackable Yahoo! Pipes plus IFTTT on your own server. You always know who has your data. You do."
+      },
+      "license": {
+        "label": "Standard Open Source Initiative MIT License",
+        "url": "http://opensource.org/licenses/MIT"
+      }
+    }
+  },
+  "software": {
+    "base": {
+      "name": "huginn",
+      "framework": "rails4",
+      "deployment_type": "web",
+      "http_protocol": "http_and_https",
+      "memory": {
+        "required": 580,
+        "recommended": 720
+      },
+      "first_run_url": "_Engines_Builder(http_protocol)://_Engines_Builder(fqdn)/",
+      "installation_report": "\r\nGoto _Engines_Builder(http_protocol)://_Engines_Builder(fqdn)/ and login with\r\nUser admin\r\npassword password"
+    },
+    "scripts": {
+      "start": {
+        "language": "sh",
+        "content": "#!/bin/sh\r\n\r\nif ! test -h /home/fs/persistent/environment.txt\r\n then\r\n     cd /home/fs/persistent\r\n     ln -s /home/app/.env /home/fs/persistent/environment.txt \r\n    \r\nfi\r\n\r\n\r\n\r\n"
+      },
+      "install": {
+        "language": "sh"
+      },
+      "post_install": {
+        "language": "sh"
+      },
+      "shutdown": {
+        "language": "sh"
+      }
+    },
+    "installed_packages": [
+      {
+        "name": "huginn",
+        "source_url": "https://github.com/cantino/huginn.git",
+        "destination": "/",
+        "extraction_command": "git",
+        "path_to_extracted": "huginn"
+      }
+    ],
+    "service_configurations": [
+      {
+        "publisher_namespace": "EnginesSystem",
+        "type_path": "database/sql/mysql",
+        "variables": {
+          "db_flavor": "mysql2",
+          "collation": "utf8mb4_general_ci",
+          "db_username": "_Engines_Builder(engine_name)",
+          "database_name": "_Engines_Builder(engine_name)",
+          "database_host": "_Engines_System(mysql_host)",
+          "name": "_Engines_Builder(engine_name)",
+          "db_password": "_Engines_System(random(10))",
+          "full_access": "false"
+        }
+      },
+      {
+        "publisher_namespace": "EnginesSystem",
+        "type_path": "filesystem/local/filesystem",
+        "variables": {
+          "user": "_Engines_Builder(data_uid)",
+          "group": "_Engines_Builder(data_gid)",
+          "service_name": "_Engines_Builder(engine_name)",
+          "volume_src": " ",
+          "permissions": "rw",
+          "engine_path": "persistent"
+        }
+      }
+    ],
+    "environment_variables": [
+      {
+        "name": "LANG",
+        "value": "en_US.UTF-8",
+        "immutable": true,
+        "input": {
+          "type": "text",
+          "label": "LANG"
+        }
+      },
+      {
+        "name": "LANGUAGE",
+        "value": "en_US.UTF-8",
+        "immutable": true,
+        "input": {
+          "type": "text",
+          "label": "LANGUAGE"
+        }
+      },
+      {
+        "name": "LC_ALL",
+        "value": "en_US.UTF-8",
+        "immutable": true,
+        "input": {
+          "type": "text",
+          "label": "LC_ALL"
+        }
+      },
+      {
+        "name": "from_email",
+        "value": "piwigo@_Engines_System(default_domain)",
+        "mandatory": true,
+        "ask_at_build_time": true,
+        "input": {
+          "label": "From email"
+        }
+      }
+    ],
+    "template_files": [
+      {
+        "path": "app/.env",
+        "language": "text",
+        "content": "# ==== Required configuration settings for Huginn ====\r\n\r\n# Replace the following with the output from \"rake secret\"\r\nAPP_SECRET_TOKEN=_Engines_System(random(14))\r\n\r\n# This is the domain where your Huginn instance will be running. The default should work\r\n# for development, but it needs to be changed to your Huginn domain when you deploy to a\r\n# production environment (e.g., yourdomain.com, possibly including a port).\r\n#DOMAIN=localhost:3000\r\nDOMAIN=_Engines_Environment(fqdn)\r\n# Optionally set an asset host\r\n# ASSET_HOST=http://assets.example.com\r\n\r\n############################\r\n#      Database Setup      #\r\n############################\r\n\r\nDATABASE_ADAPTER=mysql2\r\nDATABASE_ENCODING=utf8\r\nDATABASE_RECONNECT=true\r\nDATABASE_NAME='_Engines_Environment(dbname)'\r\nDATABASE_POOL=10\r\nDATABASE_USERNAME='_Engines_Environment(dbuser)'\r\nDATABASE_PASSWORD=\"_Engines_Environment(dbname)\"\r\nDATABASE_HOST=\"_Engines_Environment(dbhost)\"\r\n#DATABASE_PORT=3306\r\n#DATABASE_SOCKET=/tmp/mysql.sock\r\n\r\n# MySQL only: If you are running a MySQL server >=5.5.3, you should\r\n# set DATABASE_ENCODING to utf8mb4 instead of utf8 so that the\r\n# database can hold 4-byte UTF-8 characters like emoji.\r\n#DATABASE_ENCODING=utf8mb4\r\n\r\n# ==== Additional required production settings ====\r\n\r\n# Configure Rails environment.  This should only be needed in production and may cause errors in development.\r\nRAILS_ENV=production\r\n\r\n# Should Rails force all requests to use SSL?\r\nFORCE_SSL=false\r\n\r\n############################\r\n#     Allowing Signups     #\r\n############################\r\n\r\n# This invitation code will be required for users to signup with your Huginn installation.\r\n# You can see its use in user.rb.  PLEASE CHANGE THIS!\r\nINVITATION_CODE=try-huginn\r\n\r\n# If you don't want to require new users to have an invitation code in order to sign up, set this to true.\r\nSKIP_INVITATION_CODE=false\r\n\r\n#############################\r\n#    Email Configuration    #\r\n#############################\r\n\r\n# Outgoing email settings.  To use Gmail or Google Apps, put your Google Apps domain or gmail.com\r\n# as the SMTP_DOMAIN and your Gmail username and password as the SMTP_USER_NAME and SMTP_PASSWORD.\r\n#\r\n# PLEASE NOTE: In order to enable sending real emails via SMTP locally (e.g., when not in the production Rails environment),\r\n# you must also set SEND_EMAIL_IN_DEVELOPMENT to true below.\r\n#\r\n# If you have trouble with port 587 on Gmail, you can also try setting\r\n# SMTP_AUTHENTICATION to login and the SMTP_PORT to 465.\r\n\r\nSMTP_DOMAIN=_Engines_Environment(dbname)\r\n#SMTP_USER_NAME=you@gmail.com\r\n#SMTP_PASSWORD=somepassword\r\nSMTP_SERVER=_Engines_System(smtp_host)\r\nSMTP_PORT=25\r\nSMTP_AUTHENTICATION=none\r\nSMTP_ENABLE_STARTTLS_AUTO=false\r\n\r\n# Set to true to send real emails via SMTP when running in the development Rails environment.\r\n# Set to false to have emails intercepted in development and displayed at http://localhost:3000/letter_opener\r\nSEND_EMAIL_IN_DEVELOPMENT=false\r\n\r\n# The address from which system emails will appear to be sent.\r\nEMAIL_FROM_ADDRESS=_Engines_Environment(from_email)\r\n\r\n###########################\r\n#      Agent Logging      #\r\n###########################\r\n\r\n# Number of lines of log messages to keep per Agent\r\nAGENT_LOG_LENGTH=200\r\n\r\n########################################################################################################\r\n#    OAuth Configuration                                                                               #\r\n#  More information at the wiki: https://github.com/cantino/huginn/wiki/Configuring-OAuth-applications #\r\n########################################################################################################\r\n\r\nTWITTER_OAUTH_KEY=\r\nTWITTER_OAUTH_SECRET=\r\n\r\nTHIRTY_SEVEN_SIGNALS_OAUTH_KEY=\r\nTHIRTY_SEVEN_SIGNALS_OAUTH_SECRET=\r\n\r\nGITHUB_OAUTH_KEY=\r\nGITHUB_OAUTH_SECRET=\r\n\r\nTUMBLR_OAUTH_KEY=\r\nTUMBLR_OAUTH_SECRET=\r\n\r\nDROPBOX_OAUTH_KEY=\r\nDROPBOX_OAUTH_SECRET=\r\n\r\nWUNDERLIST_OAUTH_KEY=\r\nWUNDERLIST_OAUTH_SECRET=\r\n\r\nEVERNOTE_OAUTH_KEY=\r\nEVERNOTE_OAUTH_SECRET=\r\n# Set to true in development, false in production\r\nUSE_EVERNOTE_SANDBOX=true\r\n\r\n#############################\r\n#  AWS and Mechanical Turk  #\r\n#############################\r\n\r\n# AWS Credentials for MTurk\r\nAWS_ACCESS_KEY_ID=\"your aws access key id\"\r\nAWS_ACCESS_KEY=\"your aws access key\"\r\n\r\n# Set AWS_SANDBOX to true if you're developing Huginn code.\r\nAWS_SANDBOX=false\r\n\r\n########################\r\n#   Various Settings   #\r\n########################\r\n\r\n# Specify the HTTP backend library for Faraday, commonly used by\r\n# WebsiteAgent, RssAgent and PostAgent.  You can change this depending\r\n# on the performance and stability you need for your service.  Any\r\n# choice other than \"typhoeus\", \"net_http\", or \"em_http\" should\r\n# require you to bundle a corresponding gem via Gemfile.\r\nFARADAY_HTTP_BACKEND=typhoeus\r\n\r\n# Specify the default User-Agent header value for HTTP requests made\r\n# by Agents that allow overriding the User-Agent header value.\r\nDEFAULT_HTTP_USER_AGENT=\"Huginn - https://github.com/cantino/huginn\"\r\n\r\n# Allow JSONPath eval expresions. i.e., $..price[?(@ < 20)]\r\n# You should not allow this on a shared Huginn box because it is not secure.\r\nALLOW_JSONPATH_EVAL=false\r\n\r\n# Enable this setting to allow insecure Agents like the ShellCommandAgent.  Only do this\r\n# when you trust everyone using your Huginn installation.\r\nENABLE_INSECURE_AGENTS=false\r\n\r\n# Enable this setting to allow second precision schedule in\r\n# SchedulerAgent.  By default, the use of the \"second\" field is\r\n# restricted so that any value other than a single zero (which means\r\n# \"on the minute\") is disallowed to prevent abuse of service.\r\nENABLE_SECOND_PRECISION_SCHEDULE=false\r\n\r\n# Specify the scheduler frequency in seconds (default: 0.3).\r\n# Increasing this value will help reduce the use of system resources\r\n# at the expense of time accuracy.\r\nSCHEDULER_FREQUENCY=0.3\r\n\r\n# Specify the frequency with which the scheduler checks for and cleans up expired events.\r\n# You can use `m` for minutes, `h` for hours, and `d` for days.\r\nEVENT_EXPIRATION_CHECK=6h\r\n\r\n# Use Graphviz for generating diagrams instead of using Google Chart\r\n# Tools.  Specify a dot(1) command path built with SVG support\r\n# enabled.\r\n#USE_GRAPHVIZ_DOT=dot\r\n\r\n# Default layout for agent flow diagrams generated by Graphviz.\r\n# Choose from `circo`, `dot` (default), `fdp`, `neato`, `osage`,\r\n# `patchwork`, `sfdp`, or `twopi`.  Note that not all layouts are\r\n# supported by Graphviz depending on the build options.\r\n#DIAGRAM_DEFAULT_LAYOUT=dot\r\n\r\n# Timezone. Use `rake time:zones:local` or `rake time:zones:all` to get your zone name\r\nTIMEZONE=\"Pacific Time (US & Canada)\"\r\n\r\n# Number of failed jobs to keep in the database\r\nFAILED_JOBS_TO_KEEP=100\r\n\r\n# Maximum runtime of background jobs in minutes\r\nDELAYED_JOB_MAX_RUNTIME=2\r\n\r\n# Amount of seconds for delayed_job to sleep before checking for new jobs\r\nDELAYED_JOB_SLEEP_DELAY=10\r\n\r\n###############################################################\r\n# Capistrano deployment, read the documentation:              #\r\n# https://github.com/cantino/huginn/doc/manual/capistrano.md  #\r\n###############################################################\r\n\r\n#CAPISTRANO_DEPLOY_SERVER=\r\n#CAPISTRANO_DEPLOY_USER=\r\n#CAPISTRANO_DEPLOY_REPO_URL=\r\n"
+      },
+      {
+        "path": "app/Procfile",
+        "language": "text",
+        "content": "#"
+      }
+    ],
+    "database_seed": {
+      "language": "text"
+    },
+    "persistent_files": [
+      {
+        "path": ".env"
+      }
+    ],
+    "workers": {
+      "blocking": "agent runner",
+      "commands": [
+        {
+          "name": "agent runner",
+          "command": "bundle exec rails runner bin/threaded.rb"
+        }
+      ]
+    },
+    "framework_specific": {
+      "rake_tasks": [
+        {
+          "action": "db:migrate",
+          "always_run": true
+        },
+        {
+          "action": "db:seed"
+        },
+        {
+          "action": "assets:precompile",
+          "always_run": true
+        }
+      ]
+    }
+  }
+}
