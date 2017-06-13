@@ -26,7 +26,8 @@
         "label": "Standard Open Source Initiative MIT License",
         "url": "http://opensource.org/licenses/MIT"
       }
-    }
+    },
+    "timestamp": "2017-06-13 05:36:36 UTC"
   },
   "software": {
     "base": {
@@ -44,7 +45,7 @@
     "scripts": {
       "start": {
         "language": "sh",
-        "content": "#!/bin/sh\r\n\r\nif ! test -h /home/fs/persistent/environment.txt\r\n then\r\n     cd /home/fs/persistent\r\n     ln -s /home/app/.env /home/fs/persistent/environment.txt \r\n    \r\nfi\r\n\r\n\r\n\r\n"
+        "content": "#!/bin/sh\r\n\r\nif ! test -h /home/fs/persistent/environment.txt\r\n then\r\n     cd /home/fs/persistent\r\n     ln -s /home/app/.env /home/fs/persistent/environment.txt \r\nfi\r\n\r\n"
       },
       "install": {
         "language": "sh"
@@ -152,13 +153,7 @@
       }
     ],
     "workers": {
-      "blocking": "agent runner",
-      "commands": [
-        {
-          "name": "agent runner",
-          "command": "bundle exec rails runner bin/threaded.rb"
-        }
-      ]
+      "blocking": "bundle exec rails runner bin/threaded.rb"
     },
     "framework_specific": {
       "rake_tasks": [
